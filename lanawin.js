@@ -10,158 +10,176 @@ function calendar(date) {
         myDate = date.split('.');
     }
 
-    let myYear = myDate[0] - 1;
-    let myMonth = myDate[1];
-    let myDay = myDate[2];
+    let myYear = Number(myDate[0] - 1);
+    let myMonth = Number(myDate[1]);
+    let myDay = Number(myDate[2]);
     
     const calendarInit = 6882; //6882.1 - 2013.december
-    const lanawinYear = calendarInit + (myYear - 2013);
-
-    const lanawinWeekLen = 6;
-    const lanawinDayNames = ["Myr", "Tarun", "Oren", "Willor", "Kelat", "Borquos"];
-    const lanawinMonthNames = ["1. Folyók hava","2. Tavak, tengerek hava","3. Fák, virágok hava","4. Mezők, rétek hava","5. A nap hava","6. A hold hava","7. A vulkánok hava","8. A perzselő homok hava","9. A színek hava","10. A levelek hava"];
+    const lanaYear = calendarInit + (myYear - 2013);
+    const lanaWeekLen = 6;
+    const lanaDayNames = ["Myr", "Tarun", "Oren", "Willor", "Kelat", "Borquos"];
+    const lanaMonthNames = ["1.Folyók hava","2.Tavak, tengerek hava","3.Fák, virágok hava","4.Mezők, rétek hava","5.A nap hava","6.A hold hava","7.A vulkánok hava","8.A perzselő homok hava","9.A színek hava","10.A levelek hava"];
     
-    const lanawinDays = [35,35,29,29,30,30,32,24,31,31];
-    const lanawinDaysSum = lanawinDays.reduce((p,c) => p+c,0);
+    const lanaMonthDays = [35,35,29,29,30,30,32,24,31,31];
+    const lanaDaysSum = lanaMonthDays.reduce((p,c) => p+c,0);
 
-    const vizHonapok = [31,31];
-    const levegoHonapok = [28,31];
-    const egyensulyHonapok = [30,31];
-    const tuzHonapok = [30,31,31];
-    const foldHonapok = [30,31,30];
+    let vizHonapok = [35,35];
+    let levegoHonapok = [29,29];
+    let egyensulyHonapok = [30,30];
+    let tuzHonapok = [32,24];
+    let foldHonapok = [31,31];
 
-    let month1 = {
-        "Kelat" : [1,7,13,19,25,31]
-    };
-    let month2 = {
-        "Willor" : [1,7,13,19,25,31]
-    };
-    let month3 = {
-        "Oren" : [1,7,13,19,25]
-    };
-    let month4 = {
-        "Tarun" : [1,7,13,19,25]
-    };
-    let month5 = {
-        "Myr" : [1,7,13,19,25]
-    };
-    let month7 = {
-        "Myr" : [1,7,13,19,25,31]
-    };
-    let month8 = {
-        "Oren" : [1,7,13,19]
-    };
-    let month9 = {
-        "Oren" : [1,7,13,19,25,31]
-    };
-    let month10 = {
-        "Willor" : [1,7,13,19,25,31]
-    };
+    let evszakok = [vizHonapok,levegoHonapok,egyensulyHonapok,tuzHonapok,foldHonapok];
 
-    // lanawinDayYearDiff = 6
-    const lanawinDayYearDiff = Math.round((365 - lanawinDays.reduce((p,c) => p+c,0)) / 10); 
+    //console.log("1 lana ev",lanaMonthDays.reduce((p,c) =>p+c,0),"nap");
+    // lanaDayYearDiff = 6
+    const lanaDayYearDiff = Math.round((365 - lanaMonthDays.reduce((p,c) => p+c,0)) / 10);
+    //console.log("oszto havi korrekcio szamitashoz",lanaDayYearDiff);
 
      // mennyi korrekcio van egy havonta es hany naponta van korrekcio
     let correctionDays = [];
-    lanawinDays.forEach((v) => {correctionDays.push(Math.round((v/lanawinDayYearDiff)))});
-    console.log(correctionDays);
+    lanaMonthDays.forEach((v) => {correctionDays.push(Math.round((v/lanaDayYearDiff)))});
+    console.log("korrekciok",correctionDays);
 
-    // osszesen hany nap elteres van a lanawini naptarhoz kepest
-    const diffRepeatSum = ((365 - lanawinDays.reduce((p,c) => p+c,0)) * (myYear - 2013));
 
-    console.log(diffRepeatSum);
-    console.log((diffRepeatSum - lanawinDaysSum) / 6);
+    let leapYearDays = (myYear - 2013) / 4; 
+    //console.log(leapYearDays);
+    // osszesen hany nap elteres van a lanai naptarhoz kepest
+    const diffRepeatSum = (((365 + leapYearDays) - lanaMonthDays.reduce((p,c) => p+c,0)) * (myYear - 2013));
+
+    console.log("nap kulonbseg ismetles osszesen ",diffRepeatSum);
+    //lanaDaySum = (nap kulonbseg ismetles ossz) - (1 lana ev napokban) * (mostani ev - naptarkezdet);
+
 
     if (myMonth == 1 || myMonth == 12) {
-        let viz = lanawinDays.slice(0,2);
-        let lanawinDaySum = Math.round((diffRepeatSum - lanawinDaysSum)/correctionDays[0]);
-        let lanawinDay = viz.reduce((p,c) => p+c,0) - lanawinDaySum;
-        let lanawinMonth;
-        if (lanawinDaySum > viz[0]) {
-            lanawinMonth = lanawinMonthNames[0];
+        let viz = lanaMonthDays.slice(0,2);
+        let lanaDaySum = Math.round((diffRepeatSum - lanaDaysSum) / correctionDays[0]);
+        let lanaDay = viz.reduce((p,c) => p+c,0) - lanaDaySum;
+        let lanaMonth;
+        if (lanaDaySum > viz[0]) {
+         lanaMonth = lanaMonthNames[0];
         } else {
-            lanawinMonth = lanawinMonthNames[1];
+         lanaMonth = lanaMonthNames[1];
         }
-        if (lanawinDay > lanawinDays[0]) {
-            lanawinDay = lanawinDay - lanawinDays[0];
+        if (lanaDay > lanaMonthDays[0]) {
+         lanaDay = lanaDay - lanaMonthDays[0];
         }
-
+        //console.log(diffRepeatSum + " - 306 / " + correctionDays[0]);
         console.log(viz);
-        console.log("lanawinDaySum",lanawinDaySum);
-        console.log("hanyadika",lanawinDay);
-        console.log(lanawinMonth);
-        console.log(lanawinYear);
+        console.log("lanaDaySum", lanaDaySum);
+        console.log("hanyadika", lanaDay);
+        console.log(lanaMonth);
+        console.log(lanaYear);
 
     } else if (myMonth == 2 || myMonth == 3) {
-        let levego = lanawinDays.slice(2,4);
-        let lanawinDaySum = Math.round((diffRepeatSum - lanawinDaysSum)/correctionDays[2]);
-        let lanawinDay = levego.reduce((p,c) => p+c,0) - lanawinDaySum;
-        let lanawinMonth;
-        if (lanawinDaySum > levego[0]) {
-            lanawinMonth = lanawinMonthNames[2];
+        let levego = lanaMonthDays.slice(2,4);
+        let lanaDaySum = Math.round((diffRepeatSum - lanaDaysSum) / correctionDays[2]);
+        let lanaDay = levego.reduce((p,c) => p+c,0) - lanaDaySum;
+        let lanaMonth;
+        if (lanaDaySum > levego[0]) {
+         lanaMonth = lanaMonthNames[2];
         } else {
-            lanawinMonth = lanawinMonthNames[3];
+         lanaMonth = lanaMonthNames[3];
         }
+        //console.log(diffRepeatSum + " - 306 / " + correctionDays[2]);
         console.log(levego);
-        console.log("lanawinDaySum",lanawinDaySum);
-        console.log("hanyadika",lanawinDay);
-        console.log(lanawinMonth);
-        console.log(lanawinYear);
+        console.log("lanaDaySum",lanaDaySum);
+        console.log("hanyadika",lanaDay);
+        console.log(lanaMonth);
+        console.log(lanaYear);
 
     } else if (myMonth == 4 || myMonth == 5) {
-        let egyensuly = lanawinDays.slice(4,6);
-        let lanawinDaySum = Math.round((diffRepeatSum - lanawinDaysSum)/correctionDays[4]);
-        let lanawinDay = egyensuly.reduce((p,c) => p+c,0) - lanawinDaySum;
-        let lanawinMonth;
-        if (lanawinDaySum > egyensuly[0]) {
-            lanawinMonth = lanawinMonthNames[4];
+        let egyensuly = lanaMonthDays.slice(4,6);
+        let lanaDaySum = Math.round((diffRepeatSum - lanaDaysSum)/correctionDays[4]);
+        let lanaDay = egyensuly.reduce((p,c) => p+c,0) - lanaDaySum;
+        let lanaMonth;
+        if (lanaDaySum > egyensuly[0]) {
+         lanaMonth = lanaMonthNames[4];
         } else {
-            lanawinMonth = lanawinMonthNames[5];
+         lanaMonth = lanaMonthNames[5];
         }
+        //console.log(diffRepeatSum + " - 306 / " + correctionDays[4]);
         console.log(egyensuly);
-        console.log("lanawinDaySum",lanawinDaySum);
-        console.log("hanyadika",lanawinDay);
-        console.log(lanawinMonth);
-        console.log(lanawinYear);
+        console.log("lanaDaySum",lanaDaySum);
+        console.log("hanyadika",lanaDay);
+        console.log(lanaMonth);
+        console.log(lanaYear);
 
     } else if (myMonth >= 6 && myMonth <= 8) {
-        let tuz = lanawinDays.slice(6,8);
-        let lanawinDaySum = Math.round((diffRepeatSum - lanawinDaysSum)/correctionDays[6]);
-        let lanawinDay = tuz.reduce((p,c) => p+c,0) - lanawinDaySum;
-        let lanawinMonth;
-        if (lanawinDaySum > tuz[1]) {
-            lanawinMonth = lanawinMonthNames[6];
+        let tuz = lanaMonthDays.slice(6,8);
+        let lanaDaySum = Math.round((diffRepeatSum - lanaDaysSum)/correctionDays[6]);
+        let lanaDay = tuz.reduce((p,c) => p+c,0) - lanaDaySum;
+        let lanaMonth;
+        if (lanaDaySum > tuz[1]) {
+         lanaMonth = lanaMonthNames[6];
         } else {
-            lanawinMonth = lanawinMonthNames[7];
+         lanaMonth = lanaMonthNames[7];
         }
+        //console.log(diffRepeatSum + " - 306 / " + correctionDays[6]);
         console.log(tuz);
-        console.log("lanawinDaySum",lanawinDaySum);
-        console.log("hanyadika",lanawinDay);
-        console.log(lanawinMonth);
-        console.log(lanawinYear);
+        console.log("lanaDaySum",lanaDaySum);
+        console.log("hanyadika",lanaDay);
+        console.log(lanaMonth);
+        console.log(lanaYear);
 
     } else if (myMonth >= 9 && myMonth <= 11) {
-        let fold = lanawinDays.slice(8,10);
-        let lanawinDaySum = Math.round((diffRepeatSum - lanawinDaysSum)/correctionDays[8]);
-        let lanawinDay = fold.reduce((p,c) => p+c,0) - lanawinDaySum;
-        let lanawinMonth;
-        if (lanawinDaySum > fold[0]) {
-            lanawinMonth = lanawinMonthNames[8];
-        } else {
-            lanawinMonth = lanawinMonthNames[9];
+        let lanaDay;
+        let lanaMonth;
+        let daySpeed = ((30 - Math.round(62/3)) / lanaWeekLen);
+        //console.log(daySpeed);
+        if (myMonth == 9) {
+            lanaDay = Math.round(myDay / daySpeed);
+            if (lanaDay == 1 || lanaDay == 7 || lanaDay == 13 || lanaDay == 19) {
+                lanaDay = lanaDay - 1;
+            }
+            lanaMonth = lanaMonthNames[8];
+        } else if (myMonth == 10) {
+            lanaDay = Math.round(myDay / daySpeed) + 20;
+            lanaMonth = lanaMonthNames[8];
+            if (lanaDay >= 32 || lanaDay <= 9) {
+                lanaMonth = lanaMonthNames[9];
+                lanaDay = Math.round(myDay / daySpeed) - 12;
+            }
+        } else if (myMonth == 11) {
+            lanaDay = Math.round(myDay / daySpeed) + 10; 
+            if (lanaDay == 12 || lanaDay == 18 || lanaDay == 24 || lanaDay == 30) {
+                lanaDay = lanaDay + 1;
+            } else  {
+                lanaDay = lanaDay - 1;
+            }
+            lanaMonth = lanaMonthNames[9]
         }
-        console.log(fold);
-        console.log("lanawinDaySum",lanawinDaySum);
-        console.log("hanyadika",lanawinDay);
-        console.log(lanawinMonth);
-        console.log(lanawinYear);
+        console.log(lanaYear+"."+lanaMonth+"."+lanaDay);
     }
-    
-
 
 }
+console.log(calendar("2022.10.17"));
 
 
-// console.log(calendar("2022.3.16"));
-// console.log(calendar("2022.8.9"));
-console.log(calendar("2022.1.8"));
+let month1 = {
+    "Kelat" : [1,7,13,19,25,31]
+};
+let month2 = {
+    "Willor" : [1,7,13,19,25,31]
+};
+let month3 = {
+    "Oren" : [1,7,13,19,25]
+};
+let month4 = {
+    "Tarun" : [1,7,13,19,25]
+};
+let month5 = {
+    "Myr" : [1,7,13,19,25]
+};
+let month7 = {
+    "Myr" : [1,7,13,19,25,31]
+};
+let month8 = {
+    "Oren" : [1,7,13,19]
+};
+let month9 = {
+    "Oren" : [1,7,13,19,25,31]
+};
+let month10 = {
+    "Willor" : [1,7,13,19,25,31]
+};
