@@ -3,7 +3,6 @@ const myOutput = document.getElementById('myOutput');
 //const mySubmit = document.getElementById('mySubmit');
 
 myInput.addEventListener('keyup', function() {
-    //calendar(this.value);
     myOutput.innerText = calendar(this.value);
 });
 
@@ -60,7 +59,9 @@ function calendar(date) {
 
     if (myMonth == 1 || myMonth == 12) {
         if (myMonth == 12) {
-            lanaDay = myDay;
+            if (myDay >= 1 && myDay < 32) {
+                lanaDay = Math.round(myDay*daySpeed);
+            }
             lanaMonth = lanaMonthNames[0];
             for (let i = 0,j = 1; i < lanaDayNames.length, j <= lanaDay; i++, j++) {
                 if (lanaDay == 1) {
@@ -70,14 +71,18 @@ function calendar(date) {
                         return;
                     }
                     lanaDay == 4 || lanaDay == 10 || lanaDay == 16 || lanaDay == 22 || lanaDay == 28 || lanaDay == 34 ?
-                        lanaDay = lanaDay + 1 : lanaDay = lanaDay;
+                        lanaDay = lanaDay - 1 : lanaDay = lanaDay;
                     i == 2 ? i = -4 : j % 6 == 0 ? i = -1 : i;
                     lanaDayName = lanaDayNames[4+i];
                     //console.log(i+" - "+j+" - "+lanaDayName);
                 }
             }
         } else if (myMonth == 1) {
-            lanaDay = myDay;
+            daySpeed = ((lanaMonthDays[1] / 31).toPrecision(3));
+            //console.log(daySpeed);
+            if (myDay >= 1 && myDay < 32) {
+                lanaDay = Math.round(myDay*daySpeed);
+            }
             lanaMonth = lanaMonthNames[1];
             //console.log(lanaDay);
             for (let i = 0,j = 1; i < lanaDayNames.length, j <= lanaDay; i++, j++) {
@@ -87,8 +92,8 @@ function calendar(date) {
                     if (lanaDay > 35) {
                         return;
                     }
-                    lanaDay == 4 || lanaDay == 10 || lanaDay == 16 || lanaDay == 22 || lanaDay == 28 || lanaDay == 34 ?
-                        lanaDay = lanaDay + 1 : lanaDay = lanaDay;
+                    lanaDay == 4 || lanaDay == 10 || lanaDay == 22 || lanaDay == 28 ?
+                        lanaDay = lanaDay - 1 : lanaDay - 1;
                     i == 3 ? i = -3 : j % 6 == 0 ? i = -1 : i;
                     lanaDayName = lanaDayNames[3+i];
                     //console.log(i+" - "+j+" - "+lanaDayName);
@@ -283,5 +288,3 @@ function calendar(date) {
         return lanaYear+"."+lanaMonth+"."+lanaDay+"."+lanaDayName;
     }
 }
-
-console.log(calendar("2022.1.3"));
