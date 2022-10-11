@@ -125,14 +125,27 @@ function calendar(date) {
     } else if (myMonth >= 9 && myMonth <= 11) {
         let lanaDay;
         let lanaMonth;
+        let lanaDayName;
         let daySpeed = ((30 - Math.round(62/3)) / lanaWeekLen);
         //console.log(daySpeed);
         if (myMonth == 9) {
             lanaDay = Math.round(myDay / daySpeed);
             if (lanaDay == 1 || lanaDay == 7 || lanaDay == 13 || lanaDay == 19) {
-                lanaDay = lanaDay - 1;
+                lanaDay = lanaDay;
             }
             lanaMonth = lanaMonthNames[8];
+            for (let i = 2; i < lanaDay; i++) {
+                for (let j = 0; j <= lanaDayNames.length; j++) {
+                    if (lanaDay == 1) {
+                        lanaDayName = lanaDayNames[2];
+                        console.log(lanaDayName);
+                    } else {
+                        lanaDayName = lanaDayNames[2+j];
+                        console.log(lanaDayName);
+                    }
+                }
+            }
+            //console.log(lanaDayName);
         } else if (myMonth == 10) {
             lanaDay = Math.round(myDay / daySpeed) + 20;
             lanaMonth = lanaMonthNames[8];
@@ -149,11 +162,12 @@ function calendar(date) {
             }
             lanaMonth = lanaMonthNames[9]
         }
-        console.log(lanaYear+"."+lanaMonth+"."+lanaDay);
+        
+        console.log(lanaYear+"."+lanaMonth+"."+lanaDay+"."+lanaDayName);
     }
 
 }
-console.log(calendar("2022.10.17"));
+console.log(calendar("2022.9.10"));
 
 
 let month1 = {
