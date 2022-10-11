@@ -1,11 +1,11 @@
-// const myInput = document.getElementById('myInput');
-// const myOutput = document.getElementById('myOutput');
-// //const mySubmit = document.getElementById('mySubmit');
+const myInput = document.getElementById('myInput');
+const myOutput = document.getElementById('myOutput');
+//const mySubmit = document.getElementById('mySubmit');
 
-// myInput.addEventListener('keyup', function() {
-//     //calendar(this.value);
-//     myOutput.innerText = calendar(this.value);
-// });
+myInput.addEventListener('keyup', function() {
+    //calendar(this.value);
+    myOutput.innerText = calendar(this.value);
+});
 
 // date formátum = YYYY-M-D vagy YYYY.M.D
 
