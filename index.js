@@ -1,11 +1,11 @@
-const myInput = document.getElementById('myInput');
-const myOutput = document.getElementById('myOutput');
-//const mySubmit = document.getElementById('mySubmit');
+// const myInput = document.getElementById('myInput');
+// const myOutput = document.getElementById('myOutput');
+// //const mySubmit = document.getElementById('mySubmit');
 
-myInput.addEventListener('keyup', function() {
-    //calendar(this.value);
-    myOutput.innerText = calendar(this.value);
-});
+// myInput.addEventListener('keyup', function() {
+//     //calendar(this.value);
+//     myOutput.innerText = calendar(this.value);
+// });
 
 // date formátum = YYYY-M-D vagy YYYY.M.D
 
@@ -60,9 +60,7 @@ function calendar(date) {
 
     if (myMonth == 1 || myMonth == 12) {
         if (myMonth == 12) {
-            daySpeed = (lanaMonthDays[0] / myDay).toPrecision(3);
-            lanaDay = Math.round(myDay / daySpeed) + 7;
-            //console.log(daySpeed);
+            lanaDay = myDay;
             lanaMonth = lanaMonthNames[0];
             for (let i = 0,j = 1; i < lanaDayNames.length, j <= lanaDay; i++, j++) {
                 if (lanaDay == 1) {
@@ -79,10 +77,9 @@ function calendar(date) {
                 }
             }
         } else if (myMonth == 1) {
-            daySpeed = (lanaMonthDays[0] / myDay).toPrecision(3);
-            //console.log(daySpeed);
-            lanaDay = Math.round(myDay / daySpeed) + 7;
+            lanaDay = myDay;
             lanaMonth = lanaMonthNames[1];
+            //console.log(lanaDay);
             for (let i = 0,j = 1; i < lanaDayNames.length, j <= lanaDay; i++, j++) {
                 if (lanaDay == 1) {
                     lanaDayName = lanaDayNames[3];
@@ -287,4 +284,4 @@ function calendar(date) {
     }
 }
 
-console.log(calendar("2022.10.11"));
+console.log(calendar("2022.1.3"));
