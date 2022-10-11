@@ -1,3 +1,12 @@
+const myInput = document.getElementById('myInput');
+const myOutput = document.getElementById('myOutput');
+//const mySubmit = document.getElementById('mySubmit');
+
+myInput.addEventListener('keyup', function() {
+    //calendar(this.value);
+    myOutput.innerText = calendar(this.value);
+});
+
 // date formátum = YYYY-M-D vagy YYYY.M.D
 
 function calendar(date) {
@@ -15,6 +24,10 @@ function calendar(date) {
     const monthMsg = "Kérlek adj meg 12 hónap vagy annál kevesebbet!";
     const dayMsg = "Kérlek adj meg 31 napnál kevesebbet!";
 
+    let myYear = Number(myDate[0] - 1);
+    let myMonth = Number(myDate[1]);
+    let myDay = Number(myDate[2]);
+
     if (myYear < 2013) {
         return yearMsg;
     }
@@ -24,10 +37,6 @@ function calendar(date) {
     if (myMonth > 12) {
         return monthMsg;
     }
-
-    let myYear = Number(myDate[0] - 1);
-    let myMonth = Number(myDate[1]);
-    let myDay = Number(myDate[2]);
     
     const calendarInit = 6882; //6882.1 - 2013.december
     const lanaYear = calendarInit + (myYear - 2013);
@@ -36,7 +45,6 @@ function calendar(date) {
     const lanaMonthNames = ["1.Folyók hava","2.Tavak, tengerek hava","3.Fák, virágok hava","4.Mezők, rétek hava","5.A nap hava","6.A hold hava","7.A vulkánok hava","8.A perzselő homok hava","9.A színek hava","10.A levelek hava"];
     
     const lanaMonthDays = [35,35,29,29,30,30,32,24,31,31];
-    //const lanaDaysSum = lanaMonthDays.reduce((p,c) => p+c,0);
 
     // lanaDayYearDiff = 6
     const lanaDayYearDiff = Math.round((365 - lanaMonthDays.reduce((p,c) => p+c,0)) / 10);
@@ -44,13 +52,6 @@ function calendar(date) {
      // mennyi korrekcio van egy havonta es hany naponta van korrekcio
     let correctionDays = [];
     lanaMonthDays.forEach((v) => {correctionDays.push(Math.round((v/lanaDayYearDiff)))});
-   
-    let leapYearDays = (myYear - 2013) / 4; 
-
-    // osszesen hany nap elteres van a lanai naptarhoz kepest
-    //const diffRepeatSum = (((365 + leapYearDays) - lanaMonthDays.reduce((p,c) => p+c,0)) * (myYear - 2013));
-    //console.log("nap kulonbseg ismetles osszesen ",diffRepeatSum);
-    //lanaDaySum = (nap kulonbseg ismetles ossz) - (1 lana ev napokban) * (mostani ev - naptarkezdet);
 
     let lanaDay;
     let lanaMonth;
@@ -97,7 +98,7 @@ function calendar(date) {
                 }
             }
         }
-        return date + " => " + lanaYear+"."+lanaMonth+"."+lanaDay+"."+lanaDayName;
+        return lanaYear+"."+lanaMonth+"."+lanaDay+"."+lanaDayName;
     } else if (myMonth == 2 || myMonth == 3) {
         if (myYear % 4 == 0 && myYear % 400 == 0) {
             daySpeed = Math.abs((30 - Math.round(62/2)) / lanaWeekLen);
@@ -136,7 +137,7 @@ function calendar(date) {
                 }
             }
         }
-        return date + " => " + lanaYear+"."+lanaMonth+"."+lanaDay+"."+lanaDayName;
+        return lanaYear+"."+lanaMonth+"."+lanaDay+"."+lanaDayName;
     } else if (myMonth == 4 || myMonth == 5) {
         let lanaDay;
         let lanaMonth;
@@ -172,7 +173,7 @@ function calendar(date) {
                 }
             }
         }
-        return date + " => " + lanaYear+"."+lanaMonth+"."+lanaDay+"."+lanaDayName; 
+        return lanaYear+"."+lanaMonth+"."+lanaDay+"."+lanaDayName; 
     } else if (myMonth >= 6 && myMonth <= 8) {
         let lanaDay;
         let lanaMonth;
@@ -229,7 +230,7 @@ function calendar(date) {
                 }
             }
         }
-        return date + " => " + lanaYear+"."+lanaMonth+"."+lanaDay+"."+lanaDayName;
+        return lanaYear+"."+lanaMonth+"."+lanaDay+"."+lanaDayName;
     } else if (myMonth >= 9 && myMonth <= 11) {
         let lanaDay;
         let lanaMonth;
@@ -253,13 +254,13 @@ function calendar(date) {
             lanaMonth = lanaMonthNames[8];
             if (lanaDay >= 31 || lanaDay <= 9) { //
                 lanaMonth = lanaMonthNames[9];
-                lanaDay = Math.round(myDay / daySpeed) - 11;
+                lanaDay = Math.round(myDay / daySpeed) - 12;
             }
             for (let i = 0,j = 1; i < lanaDayNames.length, j <= lanaDay; i++, j++) {
                 if (lanaDay == 1) {
                     lanaDayName = lanaDayNames[3];
                 } else {
-                    i == 3 ? i = -3 : j % 6 == 0 ? i = -1 : i;
+                    i == 3 ? i = -3 : j % 6 == 0 ? i = -2 : i;
                     lanaDayName = lanaDayNames[3+i];
                     //console.log(i+" - "+j+" - "+lanaDayName);
                 }
@@ -282,7 +283,8 @@ function calendar(date) {
                 }
             }
         }
-        return date + " => " + lanaYear+"."+lanaMonth+"."+lanaDay+"."+lanaDayName;
+        return lanaYear+"."+lanaMonth+"."+lanaDay+"."+lanaDayName;
     }
 }
-console.log(calendar("2022.1.31"));
+
+console.log(calendar("2022.10.11"));

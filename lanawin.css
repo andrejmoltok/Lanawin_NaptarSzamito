@@ -1,0 +1,42 @@
+html, body {
+    background-color:peru;
+    margin: auto auto;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+#container {
+    margin: auto auto;
+    width: 300px;
+    height: 160px;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    gap: 5px;
+    background-color: peru;
+}
+
+#help {
+    margin-top: 10px;
+    width: 300px;
+    border-radius: 10px;
+    border: 2px solid black;
+}
+
+#help > p {
+    margin: 10px 8px 10px 8px;
+}
+
+#myOutput {
+    margin-top: 0px;
+}
+
+#container > p {
+    margin-bottom: 0px;
+}
+
+input[type="button"] {
+    padding-top: 5px;
+}

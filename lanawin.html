@@ -10,8 +10,16 @@
     </head>
     <body>
         <div id="container">
-            <input type="text" id="input" onchange="calendar(this)" placeholder="Gergely naptár bemenet...">
-            <input type="text" id="output" placeholder="Lanawin Dátum...">
+            <p>Gergely naptár:</p> 
+            <input type="text" id="myInput" onsubmit="calendar(this)" placeholder="Kérlek ide írd be a dátumot...">
+            <p>Lanawin naptár:</p> 
+            <p id="myOutput">Nyomd meg az Átalakít gombot...</p>
+            <!-- <input type="submit" value="Átalakít" id="mySubmit"> -->
+        </div>
+        <div id="help">
+            <p>A bevitt dátum a következő formátumúnak kell lennie:</p>
+            <p>YYYY-M-D vagy YYYY.M.D</p>
+            <p>Tehát vagy kötöjellel vagy ponttal elválasztva.</p>
         </div>
         <script src="lanawin.js" async defer></script>
     </body>
