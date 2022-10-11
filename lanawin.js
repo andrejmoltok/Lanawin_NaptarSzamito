@@ -72,56 +72,104 @@ function calendar(date) {
         console.log(lanaYear);
 
     } else if (myMonth == 2 || myMonth == 3) {
-        let levego = lanaMonthDays.slice(2,4);
-        let lanaDaySum = Math.round((diffRepeatSum - lanaDaysSum) / correctionDays[2]);
-        let lanaDay = levego.reduce((p,c) => p+c,0) - lanaDaySum;
+        let lanaDay;
         let lanaMonth;
-        if (lanaDaySum > levego[0]) {
-         lanaMonth = lanaMonthNames[2];
-        } else {
-         lanaMonth = lanaMonthNames[3];
-        }
-        //console.log(diffRepeatSum + " - 306 / " + correctionDays[2]);
-        console.log(levego);
-        console.log("lanaDaySum",lanaDaySum);
-        console.log("hanyadika",lanaDay);
-        console.log(lanaMonth);
-        console.log(lanaYear);
+        let lanaDayName;
+        //let daySpeed = Math.abs((30 - Math.round(61/2)) / lanaWeekLen).toPrecision(1);
+        if (myMonth == 2) {
+            
+        } else if (myMonth == 3) {
 
+        }
     } else if (myMonth == 4 || myMonth == 5) {
-        let egyensuly = lanaMonthDays.slice(4,6);
-        let lanaDaySum = Math.round((diffRepeatSum - lanaDaysSum)/correctionDays[4]);
-        let lanaDay = egyensuly.reduce((p,c) => p+c,0) - lanaDaySum;
+        let lanaDay;
         let lanaMonth;
-        if (lanaDaySum > egyensuly[0]) {
-         lanaMonth = lanaMonthNames[4];
-        } else {
-         lanaMonth = lanaMonthNames[5];
+        let lanaDayName;
+        //let daySpeed = Math.abs((30 - Math.round(61/2)) / lanaWeekLen).toPrecision(1);
+        //console.log(daySpeed);
+        if (myMonth == 4) {
+            lanaDay = myDay;
+            lanaMonth = lanaMonthNames[4];
+            for (let i = 0,j = 1; i < lanaDayNames.length, j <= lanaDay; i++, j++) {
+                if (lanaDay == 1) {
+                    lanaDayName = lanaDayNames[0];
+                } else {
+                    i == 6 ? i = 0 : i;
+                    lanaDayName = lanaDayNames[i];
+                    //console.log(i+" - "+j+" - "+lanaDayName);
+                }
+            }
+        } else if (myMonth == 5) {
+            lanaDay = myDay;
+            lanaMonth = lanaMonthNames[5];
+            for (let i = 0,j = 1; i < lanaDayNames.length, j <= lanaDay; i++, j++) {
+                if (lanaDay == 1) {
+                    lanaDayName = lanaDayNames[0];
+                } else {
+                    i == 6 ? i = 0 : i;
+                    lanaDayName = lanaDayNames[i];
+                    //console.log(i+" - "+j+" - "+lanaDayName);
+                }
+            }
         }
-        //console.log(diffRepeatSum + " - 306 / " + correctionDays[4]);
-        console.log(egyensuly);
-        console.log("lanaDaySum",lanaDaySum);
-        console.log("hanyadika",lanaDay);
-        console.log(lanaMonth);
-        console.log(lanaYear);
-
+        return date + " => " + lanaYear+"."+lanaMonth+"."+lanaDay+"."+lanaDayName; 
     } else if (myMonth >= 6 && myMonth <= 8) {
-        let tuz = lanaMonthDays.slice(6,8);
-        let lanaDaySum = Math.round((diffRepeatSum - lanaDaysSum)/correctionDays[6]);
-        let lanaDay = tuz.reduce((p,c) => p+c,0) - lanaDaySum;
+        let lanaDay;
         let lanaMonth;
-        if (lanaDaySum > tuz[1]) {
-         lanaMonth = lanaMonthNames[6];
-        } else {
-         lanaMonth = lanaMonthNames[7];
+        let lanaDayName;
+        let daySpeed = Number(((30 - Math.round(56/3)) / lanaWeekLen).toPrecision(2));
+        //console.log(daySpeed);
+        if (myMonth == 6) {
+            lanaDay = Math.round(myDay / daySpeed);
+            lanaMonth = lanaMonthNames[6];
+            if (lanaDay == 5 || lanaDay == 11 || lanaDay == 17 || lanaDay == 23 || lanaDay == 29) {
+                lanaDay = lanaDay + 1;
+            }
+            for (let i = 0,j = 1; i < lanaDayNames.length, j <= lanaDay; i++, j++) {
+                if (lanaDay == 1) {
+                    lanaDayName = lanaDayNames[0];
+                } else {
+                    i == 6 ? i = 0 : i;
+                    lanaDayName = lanaDayNames[i];
+                    //console.log(i+" - "+j+" - "+lanaDayName);
+                }
+            }
+        } else if (myMonth == 7) {
+            lanaDay = Math.round(myDay / daySpeed) + 20;
+            lanaMonth = lanaMonthNames[6];
+            //console.log(lanaDay);
+            if (lanaDay > 32 || lanaDay < 7) {
+                lanaMonth = lanaMonthNames[7];
+                lanaDay = Math.round(myDay / daySpeed) - 11;
+                //console.log(lanaDay);
+            }
+            //console.log(lanaDay);
+            for (let i = 0,j = 1; i < lanaDayNames.length, j <= lanaDay; i++, j++) {
+                if (lanaDay == 1) {
+                    lanaDayName = lanaDayNames[2];
+                    //console.log(lanaDay);
+                } 
+                else if (lanaDay <= 6) {
+                    i == 4 ? i = -2 : j % 6 == 0 ? i = -1 : i;
+                    lanaDayName = lanaDayNames[2+i];
+                    //console.log(lanaDay);
+                    console.log(i+" - "+j+" - "+lanaDayName);
+                }
+            }
+        } else if (myMonth == 8) {
+            lanaDay = Math.round(myDay / daySpeed) + 7;
+            lanaMonth = lanaMonthNames[7];
+            for (let i = 0,j = 1; i < lanaDayNames.length, j <= lanaDay; i++, j++) {
+                if (lanaDay == 1) {
+                    lanaDayName = lanaDayNames[2];
+                } else {
+                    i == 4 ? i = -2 : j % 6 == 0 ? i = -1 : i;
+                    lanaDayName = lanaDayNames[2+i];
+                    //console.log(i+" - "+j+" - "+lanaDayName);
+                }
+            }
         }
-        //console.log(diffRepeatSum + " - 306 / " + correctionDays[6]);
-        console.log(tuz);
-        console.log("lanaDaySum",lanaDaySum);
-        console.log("hanyadika",lanaDay);
-        console.log(lanaMonth);
-        console.log(lanaYear);
-
+        return date + " => " + lanaYear+"."+lanaMonth+"."+lanaDay+"."+lanaDayName;
     } else if (myMonth >= 9 && myMonth <= 11) {
         let lanaDay;
         let lanaMonth;
@@ -130,16 +178,31 @@ function calendar(date) {
         //console.log(daySpeed);
         if (myMonth == 9) {
             lanaDay = Math.round(myDay / daySpeed);
-            if (lanaDay == 1 || lanaDay == 7 || lanaDay == 13 || lanaDay == 19) {
-                lanaDay = lanaDay;
-            }
             lanaMonth = lanaMonthNames[8];
+            for (let i = 0,j = 1; i < lanaDayNames.length, j <= lanaDay; i++, j++) {
+                if (lanaDay == 1) {
+                    lanaDayName = lanaDayNames[2];
+                } else {
+                    i == 4 ? i = -2 : j % 6 == 0 ? i = -1 : i;
+                    lanaDayName = lanaDayNames[2+i];
+                    //console.log(i+" - "+j+" - "+lanaDayName);
+                }
+            }
         } else if (myMonth == 10) {
             lanaDay = Math.round(myDay / daySpeed) + 20;
             lanaMonth = lanaMonthNames[8];
-            if (lanaDay >= 32 || lanaDay <= 9) {
+            if (lanaDay >= 31 || lanaDay <= 9) { //
                 lanaMonth = lanaMonthNames[9];
-                lanaDay = Math.round(myDay / daySpeed) - 12;
+                lanaDay = Math.round(myDay / daySpeed) - 11;
+            }
+            for (let i = 0,j = 1; i < lanaDayNames.length, j <= lanaDay; i++, j++) {
+                if (lanaDay == 1) {
+                    lanaDayName = lanaDayNames[3];
+                } else {
+                    i == 3 ? i = -3 : j % 6 == 0 ? i = -1 : i;
+                    lanaDayName = lanaDayNames[3+i];
+                    //console.log(i+" - "+j+" - "+lanaDayName);
+                }
             }
         } else if (myMonth == 11) {
             lanaDay = Math.round(myDay / daySpeed) + 10; 
@@ -148,48 +211,19 @@ function calendar(date) {
             } else  {
                 lanaDay = lanaDay - 1;
             }
-            lanaMonth = lanaMonthNames[9]
-        }
-        for (let i = 0,j = 1; i < lanaDayNames.length, j <= lanaDay; i++, j++) {
-            if (lanaDay == 1) {
-                lanaDayName = lanaDayNames[2];
-            } else {
-                i == 4 ? i = -2 : j % 6 == 0 ? i = -1 : i;
-                lanaDayName = lanaDayNames[2+i];
-                //console.log(i+" - "+j+" - "+lanaDayName);
+            lanaMonth = lanaMonthNames[9];
+            for (let i = 0,j = 1; i < lanaDayNames.length, j <= lanaDay; i++, j++) {
+                if (lanaDay == 1) {
+                    lanaDayName = lanaDayNames[3];
+                } else {
+                    i == 3 ? i = -3 : j % 6 == 0 ? i = -1 : i;
+                    lanaDayName = lanaDayNames[3+i];
+                    //console.log(i+" - "+j+" - "+lanaDayName);
+                }
             }
         }
         return date + " => " + lanaYear+"."+lanaMonth+"."+lanaDay+"."+lanaDayName;
     }
     
 }
-console.log(calendar("2022.10.11"));
-
-
-let month1 = {
-    "Kelat" : [1,7,13,19,25,31]
-};
-let month2 = {
-    "Willor" : [1,7,13,19,25,31]
-};
-let month3 = {
-    "Oren" : [1,7,13,19,25]
-};
-let month4 = {
-    "Tarun" : [1,7,13,19,25]
-};
-let month5 = {
-    "Myr" : [1,7,13,19,25]
-};
-let month7 = {
-    "Myr" : [1,7,13,19,25,31]
-};
-let month8 = {
-    "Oren" : [1,7,13,19]
-};
-let month9 = {
-    "Oren" : [1,7,13,19,25,31]
-};
-let month10 = {
-    "Willor" : [1,7,13,19,25,31]
-};
+console.log(calendar("2022.5.31"));
