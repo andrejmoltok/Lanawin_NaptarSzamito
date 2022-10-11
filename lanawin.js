@@ -39,7 +39,7 @@ function calendar(date) {
      // mennyi korrekcio van egy havonta es hany naponta van korrekcio
     let correctionDays = [];
     lanaMonthDays.forEach((v) => {correctionDays.push(Math.round((v/lanaDayYearDiff)))});
-    console.log("korrekciok",correctionDays);
+    //console.log("korrekciok",correctionDays);
 
 
     let leapYearDays = (myYear - 2013) / 4; 
@@ -47,7 +47,7 @@ function calendar(date) {
     // osszesen hany nap elteres van a lanai naptarhoz kepest
     const diffRepeatSum = (((365 + leapYearDays) - lanaMonthDays.reduce((p,c) => p+c,0)) * (myYear - 2013));
 
-    console.log("nap kulonbseg ismetles osszesen ",diffRepeatSum);
+    //console.log("nap kulonbseg ismetles osszesen ",diffRepeatSum);
     //lanaDaySum = (nap kulonbseg ismetles ossz) - (1 lana ev napokban) * (mostani ev - naptarkezdet);
 
 
@@ -134,18 +134,6 @@ function calendar(date) {
                 lanaDay = lanaDay;
             }
             lanaMonth = lanaMonthNames[8];
-            for (let i = 2; i < lanaDay; i++) {
-                for (let j = 0; j <= lanaDayNames.length; j++) {
-                    if (lanaDay == 1) {
-                        lanaDayName = lanaDayNames[2];
-                        console.log(lanaDayName);
-                    } else {
-                        lanaDayName = lanaDayNames[2+j];
-                        console.log(lanaDayName);
-                    }
-                }
-            }
-            //console.log(lanaDayName);
         } else if (myMonth == 10) {
             lanaDay = Math.round(myDay / daySpeed) + 20;
             lanaMonth = lanaMonthNames[8];
@@ -162,12 +150,20 @@ function calendar(date) {
             }
             lanaMonth = lanaMonthNames[9]
         }
-        
-        console.log(lanaYear+"."+lanaMonth+"."+lanaDay+"."+lanaDayName);
+        for (let i = 0,j = 1; i < lanaDayNames.length, j <= lanaDay; i++, j++) {
+            if (lanaDay == 1) {
+                lanaDayName = lanaDayNames[2];
+            } else {
+                i == 4 ? i = -2 : j % 6 == 0 ? i = -1 : i;
+                lanaDayName = lanaDayNames[2+i];
+                //console.log(i+" - "+j+" - "+lanaDayName);
+            }
+        }
+        return date + " => " + lanaYear+"."+lanaMonth+"."+lanaDay+"."+lanaDayName;
     }
-
+    
 }
-console.log(calendar("2022.9.10"));
+console.log(calendar("2022.10.11"));
 
 
 let month1 = {
