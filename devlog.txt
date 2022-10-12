@@ -1,0 +1,14 @@
+Check : 1. Create array from input
+    1.a) if input has `-`, split at dashes
+    1.b) if input has `.`, split at dots
+
+Check : 2. Calculate year from input
+
+Check : 3. Calculate month from input
+
+Check : 4. Calculate day from input
+
+Check : 5. Apply daySpeed modifier for day syncing
+
+ToDo : 6. Correct daySpeed modifier to avoid `NaN` and `undefined`
+            6.a) a `count` variable to do shift between `myDay` and `lanaDay` with `daySpeed`
