@@ -8,13 +8,22 @@
 
 const myInput = document.getElementById('myInput');
 const myOutput = document.getElementById('myOutput');
+const myClear = document.getElementById('myClear');
+
+
+myClear.addEventListener('click',function() {
+    myInput.value = '';
+    myOutput.innerText = 'Kezdd el gépelni a dátumot...';
+});
 
 myInput.addEventListener('keyup', function() {
     myOutput.innerText = calendar(this.value);
 });
 
+
 function calendar(date) {
 
+    
     let myDate;
 
     if (date.includes('-')) {
@@ -28,7 +37,7 @@ function calendar(date) {
     const monthMsg = "Kérlek adj meg 12 hónap vagy annál kevesebbet!";
     const dayMsg = "Kérlek adj meg 31 napnál kevesebbet!";
 
-    let myYear = Number(myDate[0] - 1);
+    let myYear = Number(myDate[0]);
     let myMonth = Number(myDate[1]);
     let myDay = Number(myDate[2]);
 
@@ -62,13 +71,17 @@ function calendar(date) {
     let lanaDayName;
     let daySpeed;
 
+    if (myYear == 2013 && myMonth < 12) {
+        return lanaYear + ", de ennyire a múltba ne menjünk vissza...";
+    }
+
     if (myMonth == 1 || myMonth == 12) {
         let decimal = (myDay * daySpeed).toString().split('.')[1];
         daySpeed = 1.15;
         if (myMonth == 12) {
             if (myDay > 0 && myDay < 32) {
                 decimal > 50 ? lanaDay = Math.round(myDay*daySpeed) : lanaDay = Math.floor(myDay*daySpeed);
-                console.log(lanaDay);
+                //console.log(lanaDay);
             }
             lanaMonth = lanaMonthNames[0];
             for (let i = 0,j = 1; i < lanaDayNames.length, j <= lanaDay; i++, j++) {
@@ -111,9 +124,11 @@ function calendar(date) {
         }
         //console.log(daySpeed);
         if (myMonth == 2) {
-            if (myDay > 29) {
-                return;
-            } 
+            if (!(myYear % 4 == 0) && !(myYear % 400 == 0) && myDay == 29) {
+                return myYear + " nem volt szökőév!";
+            } else {
+                lanaDay = myDay;
+            }
             lanaDay = myDay;
             //console.log(lanaDay);
             lanaMonth = lanaMonthNames[2];
@@ -287,3 +302,5 @@ function calendar(date) {
         return lanaYear+"."+lanaMonth+"."+lanaDay+"."+lanaDayName;
     }
 }
+
+//console.log(calendar("2013-11-27"));

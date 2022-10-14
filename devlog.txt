@@ -13,3 +13,7 @@ Check : 5. Apply daySpeed modifier for day syncing
 Check : 6. Correct daySpeed modifier to avoid `NaN` and `undefined`
 NOT NEEDED -6.a) add `count` variable to do shift between `myDay` and `lanaDay` with `daySpeed` - NOT NEEDED
             6.b) adjusted all months for each Gergely calendar month length with daySpeed
+
+Check : 7. Correct leapdays
+
+Check : 8. Add Clear button adn event;istener
