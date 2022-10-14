@@ -1,12 +1,17 @@
+////////////////////////////////////////////////////////
+//
+//  Lanawin Naptár Számláló v.1
+//
+//  `date` formátum = YYYY-M-D vagy YYYY.M.D
+//
+////////////////////////////////////////////////////////
+
 const myInput = document.getElementById('myInput');
 const myOutput = document.getElementById('myOutput');
-//const mySubmit = document.getElementById('mySubmit');
 
 myInput.addEventListener('keyup', function() {
     myOutput.innerText = calendar(this.value);
 });
-
-// date formátum = YYYY-M-D vagy YYYY.M.D
 
 function calendar(date) {
 
@@ -43,14 +48,14 @@ function calendar(date) {
     const lanaDayNames = ["Myr", "Tarun", "Oren", "Willor", "Kelat", "Borquos"];
     const lanaMonthNames = ["1.Folyók hava","2.Tavak, tengerek hava","3.Fák, virágok hava","4.Mezők, rétek hava","5.A nap hava","6.A hold hava","7.A vulkánok hava","8.A perzselő homok hava","9.A színek hava","10.A levelek hava"];
     
-    const lanaMonthDays = [35,35,29,29,30,30,32,24,31,31];
+    //const lanaMonthDays = [35,35,29,29,30,30,32,24,31,31];
 
     // lanaDayYearDiff = 6
-    const lanaDayYearDiff = Math.round((365 - lanaMonthDays.reduce((p,c) => p+c,0)) / 10);
+    //const lanaDayYearDiff = Math.round((365 - lanaMonthDays.reduce((p,c) => p+c,0)) / 10);
 
      // mennyi korrekcio van egy havonta es hany naponta van korrekcio
-    let correctionDays = [];
-    lanaMonthDays.forEach((v) => {correctionDays.push(Math.round((v/lanaDayYearDiff)))});
+    //let correctionDays = [];
+    //lanaMonthDays.forEach((v) => {correctionDays.push(Math.round((v/lanaDayYearDiff)))});
 
     let lanaDay;
     let lanaMonth;
@@ -58,19 +63,19 @@ function calendar(date) {
     let daySpeed;
 
     if (myMonth == 1 || myMonth == 12) {
+        let decimal = (myDay * daySpeed).toString().split('.')[1];
+        daySpeed = 1.15;
         if (myMonth == 12) {
-            if (myDay >= 1 && myDay < 32) {
-                lanaDay = Math.round(myDay*daySpeed);
+            if (myDay > 0 && myDay < 32) {
+                decimal > 50 ? lanaDay = Math.round(myDay*daySpeed) : lanaDay = Math.floor(myDay*daySpeed);
+                console.log(lanaDay);
             }
             lanaMonth = lanaMonthNames[0];
             for (let i = 0,j = 1; i < lanaDayNames.length, j <= lanaDay; i++, j++) {
                 if (lanaDay == 1) {
                     lanaDayName = lanaDayNames[4];
                 } else {
-                    if (lanaDay > 35) {
-                        return;
-                    }
-                    lanaDay == 4 || lanaDay == 10 || lanaDay == 16 || lanaDay == 22 || lanaDay == 28 || lanaDay == 34 ?
+                    lanaDay == 8 || lanaDay == 20 || lanaDay == 26 || lanaDay == 32 ?
                         lanaDay = lanaDay - 1 : lanaDay = lanaDay;
                     i == 2 ? i = -4 : j % 6 == 0 ? i = -1 : i;
                     lanaDayName = lanaDayNames[4+i];
@@ -78,10 +83,10 @@ function calendar(date) {
                 }
             }
         } else if (myMonth == 1) {
-            daySpeed = ((lanaMonthDays[1] / 31).toPrecision(3));
             //console.log(daySpeed);
-            if (myDay >= 1 && myDay < 32) {
-                lanaDay = Math.round(myDay*daySpeed);
+            if (myDay > 0 && myDay < 32) {
+                decimal > 50 ? lanaDay = Math.round(myDay*daySpeed) : lanaDay = Math.floor(myDay*daySpeed);
+                console.log(lanaDay);
             }
             lanaMonth = lanaMonthNames[1];
             //console.log(lanaDay);
@@ -89,11 +94,8 @@ function calendar(date) {
                 if (lanaDay == 1) {
                     lanaDayName = lanaDayNames[3];
                 } else {
-                    if (lanaDay > 35) {
-                        return;
-                    }
-                    lanaDay == 4 || lanaDay == 10 || lanaDay == 22 || lanaDay == 28 ?
-                        lanaDay = lanaDay - 1 : lanaDay - 1;
+                    lanaDay == 8 || lanaDay == 14 || lanaDay == 20 || lanaDay == 26 || lanaDay == 32 ?
+                        lanaDay = lanaDay - 1 : lanaDay = lanaDay;
                     i == 3 ? i = -3 : j % 6 == 0 ? i = -1 : i;
                     lanaDayName = lanaDayNames[3+i];
                     //console.log(i+" - "+j+" - "+lanaDayName);
@@ -105,7 +107,7 @@ function calendar(date) {
         if (myYear % 4 == 0 && myYear % 400 == 0) {
             daySpeed = Math.abs((30 - Math.round(62/2)) / lanaWeekLen);
         } else {
-            daySpeed = Math.abs((30 - Math.round(61/2)) / lanaWeekLen).toPrecision(1);
+            daySpeed = Number(Math.abs((30 - Math.round(61/2)) / lanaWeekLen).toPrecision(2));
         }
         //console.log(daySpeed);
         if (myMonth == 2) {
@@ -113,6 +115,7 @@ function calendar(date) {
                 return;
             } 
             lanaDay = myDay;
+            //console.log(lanaDay);
             lanaMonth = lanaMonthNames[2];
             for (let i = 0,j = 1; i < lanaDayNames.length, j <= lanaDay; i++, j++) {
                 if (lanaDay == 1) {
@@ -128,12 +131,12 @@ function calendar(date) {
                 return;
             } 
             lanaDay = myDay;
-            lanaMonth = lanaMonthNames[2];
+            lanaMonth = lanaMonthNames[3];
             for (let i = 0,j = 1; i < lanaDayNames.length, j <= lanaDay; i++, j++) {
                 if (lanaDay == 1) {
                     lanaDayName = lanaDayNames[1];
                 } else {
-                    i == 4 ? i = -2 : j % 6 == 0 ? i = -1 : i;
+                    i == 5 ? i = -1 : i;
                     lanaDayName = lanaDayNames[1+i];
                     //console.log(i+" - "+j+" - "+lanaDayName);
                 }
@@ -141,9 +144,6 @@ function calendar(date) {
         }
         return lanaYear+"."+lanaMonth+"."+lanaDay+"."+lanaDayName;
     } else if (myMonth == 4 || myMonth == 5) {
-        let lanaDay;
-        let lanaMonth;
-        let lanaDayName;
         if (myMonth == 4) {
             if (myDay > 30) {
                 return;
@@ -160,7 +160,7 @@ function calendar(date) {
                 }
             }
         } else if (myMonth == 5) {
-            if (myDay > 31) {
+            if (myDay > 30) {
                 return;
             }
             lanaDay = myDay;
@@ -177,10 +177,7 @@ function calendar(date) {
         }
         return lanaYear+"."+lanaMonth+"."+lanaDay+"."+lanaDayName; 
     } else if (myMonth >= 6 && myMonth <= 8) {
-        let lanaDay;
-        let lanaMonth;
-        let lanaDayName;
-        let daySpeed = Number(((30 - Math.round(56/3)) / lanaWeekLen).toPrecision(2));
+        daySpeed = 1.5;
         //console.log(daySpeed);
         if (myMonth == 6) {
             lanaDay = Math.round(myDay / daySpeed);
@@ -198,12 +195,12 @@ function calendar(date) {
                 }
             }
         } else if (myMonth == 7) {
-            lanaDay = Math.round(myDay / daySpeed) + 20;
+            lanaDay = Math.round(myDay / daySpeed) + 18;
             lanaMonth = lanaMonthNames[6];
             //console.log(lanaDay);
-            if (lanaDay > 32 || lanaDay < 7) {
+            if (lanaDay > 32 || lanaDay < 8) {
                 lanaMonth = lanaMonthNames[7];
-                lanaDay = Math.round(myDay / daySpeed) - 11;
+                lanaDay = Math.round(myDay / daySpeed) - 14;
                 //console.log(lanaDay);
             }
             //console.log(lanaDay);
@@ -212,15 +209,20 @@ function calendar(date) {
                     lanaDayName = lanaDayNames[2];
                     //console.log(lanaDay);
                 } 
-                else if (lanaDay <= 6) {
-                    i == 4 ? i = -2 : j % 6 == 0 ? i = -1 : i;
+                else if (lanaMonth == lanaMonthNames[7]){
+                    i == 4 ? i = -2 : i;
                     lanaDayName = lanaDayNames[2+i];
                     //console.log(lanaDay);
-                    console.log(i+" - "+j+" - "+lanaDayName);
+                    //console.log(i+" - "+j+" - "+lanaDayName);
+                } 
+                else {
+                    i == 6 ? i = 0 : i;
+                    lanaDayName = lanaDayNames[i];
+                    //console.log(i+" - "+j+" - "+lanaDayName);
                 }
             }
         } else if (myMonth == 8) {
-            lanaDay = Math.round(myDay / daySpeed) + 7;
+            lanaDay = Math.round(myDay / daySpeed) + 4;
             lanaMonth = lanaMonthNames[7];
             for (let i = 0,j = 1; i < lanaDayNames.length, j <= lanaDay; i++, j++) {
                 if (lanaDay == 1) {
@@ -234,10 +236,7 @@ function calendar(date) {
         }
         return lanaYear+"."+lanaMonth+"."+lanaDay+"."+lanaDayName;
     } else if (myMonth >= 9 && myMonth <= 11) {
-        let lanaDay;
-        let lanaMonth;
-        let lanaDayName;
-        let daySpeed = ((30 - Math.round(62/3)) / lanaWeekLen);
+        daySpeed = ((30 - Math.round(62/3)) / lanaWeekLen);
         //console.log(daySpeed);
         if (myMonth == 9) {
             lanaDay = Math.round(myDay / daySpeed);

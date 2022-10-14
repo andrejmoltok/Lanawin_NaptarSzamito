@@ -10,5 +10,6 @@ Check : 4. Calculate day from input
 
 Check : 5. Apply daySpeed modifier for day syncing
 
-ToDo : 6. Correct daySpeed modifier to avoid `NaN` and `undefined`
-            6.a) a `count` variable to do shift between `myDay` and `lanaDay` with `daySpeed`
+Check : 6. Correct daySpeed modifier to avoid `NaN` and `undefined`
+NOT NEEDED -6.a) add `count` variable to do shift between `myDay` and `lanaDay` with `daySpeed` - NOT NEEDED
+            6.b) adjusted all months for each Gergely calendar month length with daySpeed
