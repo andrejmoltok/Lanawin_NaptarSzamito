@@ -6,19 +6,19 @@
 //
 ////////////////////////////////////////////////////////
 
-// const myInput = document.getElementById('myInput');
-// const myOutput = document.getElementById('myOutput');
-// const myClear = document.getElementById('myClear');
+const myInput = document.getElementById('myInput');
+const myOutput = document.getElementById('myOutput');
+const myClear = document.getElementById('myClear');
 
 
-// myClear.addEventListener('click',function() {
-//     myInput.value = '';
-//     myOutput.innerText = 'Kezdd el gépelni a dátumot...';
-// });
+myClear.addEventListener('click',function() {
+    myInput.value = '';
+    myOutput.innerText = 'Kezdd el gépelni a dátumot...';
+});
 
-// myInput.addEventListener('keyup', function() {
-//     myOutput.innerText = calendar(this.value);
-// });
+myInput.addEventListener('keyup', function() {
+    myOutput.innerText = calendar(this.value);
+});
 
 
 function calendar(date) {
